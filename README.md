@@ -4,4 +4,4 @@ Yeah, is a copy of the old space defender arcade games.
 
 ## Credits
 All the asset used in this game are taken from: [Open Game Art](https://opengameart.org/content/space-shooter-redux).
-All the credits go to [Kenney](www.kenney.nl).
+All the credits go to [Kenney](https://www.kenney.nl).

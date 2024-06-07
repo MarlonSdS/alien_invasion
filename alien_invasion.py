@@ -1,6 +1,6 @@
-import sys
 import pygame
 
+import game_functions as gf
 from settings import Settings
 from ship import Ship
 
@@ -13,17 +13,15 @@ def run_game():
     #Cria uma nave
     ship = Ship(screen)
 
+    #laço principal do game
     while True:
         #Observa o teclado e o mouse
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                sys.exit()
-        #Cor de fundo
-        screen.fill(conf.bg_color)
-        #Desenha a nave na tela
-        ship.blitme()
-        #Deixa a tela mais recente visível
-        pygame.display.flip()
+        gf.check_events(ship)
+        #atualiza a posição da nave
+        ship.update()
+        #Cor de fundo, desenha a nave e atualiza a tela
+        gf.update_screen(conf, screen, ship)
+        
 
 
 run_game()
