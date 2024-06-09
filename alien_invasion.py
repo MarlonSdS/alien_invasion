@@ -1,4 +1,5 @@
 import pygame
+from pygame.sprite import Group
 
 import game_functions as gf
 from settings import Settings
@@ -11,16 +12,23 @@ def run_game():
     screen = pygame.display.set_mode((conf.screen_width, conf.screen_height))
     pygame.display.set_caption("Alien Invasion")
     #Cria uma nave
-    ship = Ship(screen)
+    ship = Ship(conf, screen)
+    #Cria um grupo de projéteis
+    bullets = Group()
 
     #laço principal do game
     while True:
         #Observa o teclado e o mouse
-        gf.check_events(ship)
-        #atualiza a posição da nave
+        gf.check_events(conf, screen, ship, bullets)
+        #atualiza a posição da nave e os projéteis
         ship.update()
-        #Cor de fundo, desenha a nave e atualiza a tela
-        gf.update_screen(conf, screen, ship)
+        bullets.update()
+        #apaga os projéteis que saíram da tela
+        for bullet in bullets.copy():
+            if bullet.rect.bottom <= 0:
+                bullets.remove(bullet)
+        #Cor de fundo, desenha a nave e os tiros e atualiza a tela
+        gf.update_screen(conf, screen, ship, bullets)
         
 
 
