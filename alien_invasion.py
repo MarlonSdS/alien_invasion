@@ -13,8 +13,11 @@ def run_game():
     pygame.display.set_caption("Alien Invasion")
     #Cria uma nave
     ship = Ship(conf, screen)
-    #Cria um grupo de projéteis
+    #Cria um grupo de projéteis e um de aliens
     bullets = Group()
+    aliens = Group()
+    #cria uma frota de alienigenas
+    gf.create_fleet(conf, screen, aliens)
 
     #laço principal do game
     while True:
@@ -22,13 +25,10 @@ def run_game():
         gf.check_events(conf, screen, ship, bullets)
         #atualiza a posição da nave e os projéteis
         ship.update()
-        bullets.update()
-        #apaga os projéteis que saíram da tela
-        for bullet in bullets.copy():
-            if bullet.rect.bottom <= 0:
-                bullets.remove(bullet)
-        #Cor de fundo, desenha a nave e os tiros e atualiza a tela
-        gf.update_screen(conf, screen, ship, bullets)
+        gf.update_bullets(bullets)
+        gf.update_aliens(conf, aliens)
+
+        gf.update_screen(conf, screen, ship, bullets, aliens)
         
 
 

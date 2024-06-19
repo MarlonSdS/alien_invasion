@@ -2,9 +2,9 @@ class Settings():
     """Armazena todas as configurações do Alien Invasion"""
     def __init__(self):
         #configurações da tela
-        self.screen_width = 1100
+        self.screen_width = 1280
         self.screen_height = 720
-        self.bg_color = (30, 32, 48)
+        self.bg_color = (30, 37, 41)
         #velocidade da nave
         self.ship_speed_factor = 1.5
         #configurações dos projéteis
@@ -13,3 +13,8 @@ class Settings():
         self.bullet_height = 15
         self.bullet_color = (20, 120, 60)
         self.bullets_allowed = 3
+        #configurações dos alienigenas 
+        self.alien_speed_factor = 1
+        self.fleet_speed_drop = 10
+        #1 representa direita; -1 representa esquerda
+        self.fleet_direction = 1
