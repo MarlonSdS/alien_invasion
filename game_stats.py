@@ -4,8 +4,8 @@ class GameStats():
         """Inicializa os dados estatísticos"""
         self.conf = conf
         self.reset_stats()
-        #inicia o jogo com um estado de game ativo
-        self.game_active = True
+        #inicia o jogo com um estado de game inativo
+        self.game_active = False
 
     def reset_stats(self):
         """Inicializa os dados estatísticos que podem mudar durante o jogo"""

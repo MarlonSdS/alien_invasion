@@ -16,6 +16,6 @@ class Settings():
         self.bullets_allowed = 3
         #configurações dos alienigenas 
         self.alien_speed_factor = 1
-        self.fleet_speed_drop = 50
+        self.fleet_speed_drop = 100
         #1 representa direita; -1 representa esquerda
         self.fleet_direction = 1
