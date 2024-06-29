@@ -5,6 +5,7 @@ import game_functions as gf
 from settings import Settings
 from ship import Ship
 from game_stats import GameStats
+from scoreboard import Scoreboard
 from button import Button
 
 def run_game():
@@ -13,6 +14,9 @@ def run_game():
     conf = Settings()
     screen = pygame.display.set_mode((conf.screen_width, conf.screen_height))
     pygame.display.set_caption("Alien Invasion")
+    # Cria instância para armazenar estatísticas do jogo e cria painel de pontuação
+    stats = GameStats(conf)
+    sb = Scoreboard(conf, screen, stats)
     #Cria o botão play
     play_button = Button(conf, screen, "Play")
     #Cria uma nave
@@ -33,10 +37,10 @@ def run_game():
         if stats.game_active:
             #atualiza a posição da nave e os projéteis
             ship.update()
-            gf.update_bullets(conf, screen, aliens, bullets)
+            gf.update_bullets(conf, screen, aliens, bullets, stats, sb )
             gf.update_aliens(conf, stats, screen,  ship, aliens, bullets)
 
-        gf.update_screen(conf, screen, ship, bullets, aliens, play_button, stats)
+        gf.update_screen(conf, screen, ship, sb, bullets, aliens, play_button, stats)
         
 
 

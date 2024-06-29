@@ -31,6 +31,8 @@ def check_play_button(mouse_x, mouse_y, screen, aliens, bullets, ship, conf, pla
     if button_clicked and not stats.game_active:
         #ocultar o cursor do mouse
         pygame.mouse.set_visible(False)
+        #reinicia as configurações
+        conf.initialize_dynamic_settings()
         #reinicia as estaísticas
         stats.reset_stats()
         stats.game_active = True
@@ -55,7 +57,7 @@ def check_events(conf, screen, ship, aliens, bullets, play_button, stats):
             check_play_button(mouse_x, mouse_y, screen, aliens, bullets, ship, conf, play_button, stats)
             
 
-def update_screen(conf, screen, ship, bullets, aliens, play_button, stats):
+def update_screen(conf, screen, ship, sb, bullets, aliens, play_button, stats):
     """Redesenha a tela a cada atualização e exibe a nova tela"""
     #redesenha a cada passagem do laço
     screen.fill(conf.bg_color)
@@ -64,20 +66,28 @@ def update_screen(conf, screen, ship, bullets, aliens, play_button, stats):
         bullet.draw_bullet()
     ship.blitme()
     aliens.draw(screen)
+    # Desenha a informação sobre pontuação
+    sb.show_score()
     #desenha o botão play na tela se o jogo estiver inativo
     if stats.game_active == False:
         play_button.draw_button()
     #deixa a tela mais recente visível
     pygame.display.flip()
 
-def update_bullets(conf, screen, aliens, bullets):
+def update_bullets(conf, screen, aliens, bullets, stats, sb):
     """Atualiza os projéteis na tela e apaga os que saíram dela"""
     #atualiza o grupo de projéteis
     bullets.update()
     #verifica se houve colisão com aliens e os remove da tela caso sim
-    pygame.sprite.groupcollide(bullets, aliens, True, True)
+    colisions = pygame.sprite.groupcollide(bullets, aliens, True, True)
+    if colisions:
+        #aumenta a pontuação sempre que um alien for atingido
+        stats.score += conf.alien_points
+        sb.prep_score(stats.score)
     #verifica se todos os aliens foram mortos e recria a frota caso sim
     if len(aliens) == 0:
+        #primeiro aumentamos a dificuldade
+        conf.increase_speed()
         create_fleet(conf, screen, aliens)
     #apaga os projéteis que saíram da tela
     for bullet in bullets.copy():

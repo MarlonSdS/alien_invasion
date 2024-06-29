@@ -10,3 +10,4 @@ class GameStats():
     def reset_stats(self):
         """Inicializa os dados estatísticos que podem mudar durante o jogo"""
         self.ship_left = self.conf.ship_limit
+        self.score = 0
